@@ -3,15 +3,16 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-mang-emp',
+  selector: 'app-add-emp',
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule],
-  templateUrl: './mang-emp.component.html',
-  styleUrl: './mang-emp.component.css',
+  templateUrl: './add-emp.component.html',
+  styleUrl: './add-emp.component.css',
 })
-export class MangEmpComponent {
+export class AddEmpComponent {
   public employeeObj = {
     firstname: '',
     lastname: '',
@@ -29,7 +30,11 @@ export class MangEmpComponent {
         this.employeeObj
       )
       .subscribe((Response) => {
-        console.log(Response);
+        Swal.fire({
+          title: ' Employee Added!',
+          text: 'Thank you for joining us!',
+          icon: 'success',
+        });
       });
   }
 }
