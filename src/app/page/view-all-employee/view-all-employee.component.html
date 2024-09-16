@@ -1,22 +1,33 @@
+<app-nav></app-nav>
 <div class="h1 text-center m-3 bg-info px-2 py-2 text-white fw-bolder">
   view-all-employee works!
 </div>
 
 <div class="container">
-  <table class="table">
-    <tr>
+  <table class="table border">
+    <tr class="border pb-2 bg-info-subtle text-black">
+      <th class="text-center">Count</th>
       <th>ID</th>
       <th>Name</th>
       <th>Email</th>
       <th>Department</th>
       <th>Role</th>
+      <th>Role</th>
     </tr>
-    <tr *ngFor="let employee of employeeList">
+    <tr *ngFor="let employee of employeeList; index as i" class="border">
+      <td class="text-center">{{ i + 1 }}</td>
       <td>{{ employee.id }}</td>
-      <td>{{ employee.firstname + " " + employee.lastname }}</td>
+      <td class="">
+        {{ employee.firstname + " " + employee.lastname }}
+      </td>
       <td>{{ employee.email }}</td>
       <td>{{ employee.department_Id }}</td>
       <td>{{ employee.role_Id }}</td>
+      <td>
+        <button class="btn btn-outline-danger" (click)="deleteEmp(employee)">
+          <i class="bi bi-trash3-fill"></i>
+        </button>
+      </td>
     </tr>
   </table>
 </div>
