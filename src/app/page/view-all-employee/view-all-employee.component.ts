@@ -8,12 +8,13 @@ import { NavComponent } from '../../common/nav/nav.component';
 @Component({
   selector: 'app-view-all-employee',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, CommonModule,NavComponent],
+  imports: [HttpClientModule, FormsModule, CommonModule, NavComponent],
   templateUrl: './view-all-employee.component.html',
   styleUrl: './view-all-employee.component.css',
 })
 export class ViewAllEmployeeComponent {
   public employeeList: any;
+
   constructor(private http: HttpClient) {
     this.loadEmpTable();
   }
@@ -53,5 +54,32 @@ export class ViewAllEmployeeComponent {
           });
       }
     });
+  }
+  public selectedEmployee: any = {
+    id: null,
+    fistname: null,
+    lastname: null,
+    email: null,
+    department_Id: null,
+    role_Id: null,
+  };
+  updateEmp(employee: any) {
+    this.selectedEmployee = employee;
+    console.log(employee);
+  }
+
+  SubmitUpdate() {
+    this.http
+      .put(
+        'http://localhost:8080/emp-controller/update-emp',
+        this.selectedEmployee
+      )
+      .subscribe((Response) => {
+        Swal.fire({
+          title: ' Employee Added!',
+          text: 'Thank you for joining us!',
+          icon: 'success',
+        });
+      });
   }
 }
