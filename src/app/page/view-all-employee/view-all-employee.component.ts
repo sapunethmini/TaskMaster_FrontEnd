@@ -69,17 +69,27 @@ export class ViewAllEmployeeComponent {
   }
 
   SubmitUpdate() {
-    this.http
-      .put(
-        'http://localhost:8080/emp-controller/update-emp',
-        this.selectedEmployee
-      )
-      .subscribe((Response) => {
-        Swal.fire({
-          title: ' Employee Added!',
-          text: 'Thank you for joining us!',
-          icon: 'success',
-        });
-      });
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        console.log('okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+        Swal.fire('Saved!', '', 'success');
+
+        this.http
+          .put(
+            'http://localhost:8080/emp-controller/update-emp',
+            this.selectedEmployee
+          )
+          .subscribe((Response) => {});
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
   }
 }
